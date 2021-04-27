@@ -6,9 +6,9 @@ import numpy as np
 import time
 import sys
 
-SHOW_PLOTS = True
-# RANDOM_SEED = None
-RANDOM_SEED = 12345
+SHOW_PLOTS = False
+RANDOM_SEED = None
+# RANDOM_SEED = 12345
 
 rng = np.random.default_rng(RANDOM_SEED)
 
@@ -17,7 +17,9 @@ PART1_POINT_X_RANGE = 200  # center is 0
 PART1_POINT_Y_RANGE = 600  # center is 0
 
 PART2_REGULARIZATION_LAMBDA = np.exp(-10)
-PART2_PRINT_WEIGHTS = True
+PART2_S_FOLD_S_VALUE = 5
+PART2_PLOT_PREDICTIONS = False
+PART2_PLOT_LAMBDA_VALUES = False
 
 def part1(step):
     # pick random (x,y) points where both x and y are in range [-100,100)
@@ -89,14 +91,18 @@ def part1(step):
     plt.plot(line_x, -3 * line_x + 1, color='green', label='Target Function y = -3x + 1')
     plt.scatter(points[:, 0], points[:, 1], s=point_size, c=classes, cmap=points_color_map)
     plt.title('Assignment 1 Part 1 Step {} - {} points '.format(step, point_count))
-    plt.xlabel('x', color='#1C2833')
-    plt.ylabel('y', color='#1C2833')
+    plt.xlabel('x', color='#222222')
+    plt.ylabel('y', color='#222222')
     plt.legend(loc='upper left')
     plt.grid()
     if SHOW_PLOTS:
         plt.show()
+    plot_filename = "part1_step{}.png".format(step)
+    plt.savefig(plot_filename)
+    print("Saved the plot to {}".format(plot_filename))
+    plt.close()
 
-def solve_linear_regression(X, t, apply_l2_regularization = False):
+def solve_linear_regression(X, t, lambda_value = 0):
     # APPLY CLOSED FORM SOLUTION
     # w∗ = ((X'X)^-1)X't
     # w∗ = ((X'X + λI)^−1)X't
@@ -105,7 +111,7 @@ def solve_linear_regression(X, t, apply_l2_regularization = False):
             np.matmul(
                 np.transpose(X),
                 X
-            ) + (PART2_REGULARIZATION_LAMBDA if apply_l2_regularization else 0)
+            ) + lambda_value
         ),
         np.matmul(
             np.transpose(X),
@@ -121,7 +127,37 @@ def solve_linear_regression(X, t, apply_l2_regularization = False):
     erms = np.sqrt(np.sum((y - t) ** 2) / t.size)
 
     return w, erms, y
-    
+
+def solve_linear_regression_s_fold(X, t, lambda_value = 0):
+    n, m = X.shape
+    sample_per_fold = int(n / PART2_S_FOLD_S_VALUE)
+    if sample_per_fold * PART2_S_FOLD_S_VALUE != n:
+        raise Exception("Sample count {} is not divisible by S, {} of s-fold"
+                        .format(n, PART2_S_FOLD_S_VALUE))
+    erms_test_values = np.zeros(PART2_S_FOLD_S_VALUE)
+    erms_train_values = np.zeros(PART2_S_FOLD_S_VALUE)
+    for i in range(PART2_S_FOLD_S_VALUE):
+        n_start = i * sample_per_fold
+        n_end = (i+1) * sample_per_fold
+        X_test = X[n_start:n_end, :]
+        X_train = np.concatenate((
+            X[0:n_start, :],
+            X[n_end:, :]
+        ), axis=0)
+        t_test = t[n_start:n_end, :]
+        t_train = np.concatenate((
+            t[0:n_start, :],
+            t[n_end:, :]
+        ))
+        w, erms_train, y_train = solve_linear_regression(X_train, t_train, lambda_value)
+        y_test = np.matmul(X_test, w)
+        erms_test = np.sqrt(np.sum((y_test - t_test) ** 2) / t_test.size)
+        erms_test_values[i] = erms_test
+        erms_train_values[i] = erms_train
+    erms_test_average = np.sum(erms_test_values) / PART2_S_FOLD_S_VALUE
+    erms_train_average = np.sum(erms_train_values) / PART2_S_FOLD_S_VALUE
+    return erms_train_average, erms_test_average
+
 
 def part2(step):
     dataset_filename = ''
@@ -138,32 +174,62 @@ def part2(step):
     else:
         raise Exception("On part2: Unexpected step " + str(step) + ", must be one of  1-3")
     input = np.loadtxt(dataset_filename, delimiter=",", encoding="utf8")
-    # todo
-    n,m = input.shape
+    n, m = input.shape
     X = input[:, 0:(m-1)]
     t = input[:, (m-1):]
     start = time.time()
-    w, erms, y = solve_linear_regression(X, t, apply_l2_regularization)
+    erms_train, erms_test = solve_linear_regression_s_fold(X, t, PART2_REGULARIZATION_LAMBDA if apply_l2_regularization else 0)
     end = time.time()
 
-    plt.scatter(range(n), y, s=1, color='purple', label='Predicted y')
-    plt.scatter(range(n), t, s=1, color='green', label='Target')
-    plt.plot(range(n), y-t, color='red', label='Error')
-    plt.title('Assignment 1 Part 2 Step {} '.format(step))
-    plt.xlabel('Sample Number', color='#1C2833')
-    plt.ylabel('Target Value', color='#1C2833')
-    plt.legend(loc='upper left')
-    plt.grid()
-    if SHOW_PLOTS:
-        plt.show()
-
+    print("Applying {}-fold cross validation".format(PART2_S_FOLD_S_VALUE))
     print("There were {} independent variables and 1 dependent variables".format(m-1))
     print("There were {} samples in total".format(n))
-    print("Completed in {} milliseconds".format(end - start))
-    print("Erms = {}".format(erms))
-    if PART2_PRINT_WEIGHTS:
+    print("Completed in {:.3f} milliseconds".format((end - start)*1000))
+    print("Average Erms_train = {}".format(erms_train))
+    print("Average Erms_test = {}".format(erms_test))
+
+    if PART2_PLOT_PREDICTIONS:
+        print("Calculating without cross-validation")
+        w, erms, y = solve_linear_regression(X, t, PART2_REGULARIZATION_LAMBDA if apply_l2_regularization else 0)
         print("Weights = {}".format(w.flatten()))
-    pass
+        plt.scatter(range(n), y, s=1, color='purple', label='Predicted y')
+        plt.scatter(range(n), t, s=1, color='green', label='Target')
+        plt.plot(range(n), y - t, color='red', label='Root Mean Square Error')
+        plt.title('Assignment 1 Part 2 Step {} - Predictions - No Cross-Validation'.format(step))
+        plt.xlabel('Sample Number', color='#222222')
+        plt.ylabel('Target Value', color='#222222')
+        plt.legend(loc='upper left')
+        plt.grid()
+        if SHOW_PLOTS:
+            plt.show()
+        plot_filename = "part2_step{}_predictions.png".format(step)
+        plt.savefig(plot_filename)
+        print("Saved the plot to {}".format(plot_filename))
+        plt.close()
+
+    if PART2_PLOT_LAMBDA_VALUES:
+        print("Calculating for a range of lambda values")
+        erms_train_values = []
+        erms_test_values = []
+        ln_lambda_values = range(-60, 5)
+        for lambda_value in ln_lambda_values:
+            erms_train, erms_test = solve_linear_regression_s_fold(X, t, np.exp(lambda_value))
+            erms_train_values.append(erms_train)
+            erms_test_values.append(erms_test)
+        plt.plot(ln_lambda_values, erms_train_values, color='blue', label='Training')
+        plt.plot(ln_lambda_values, erms_test_values, color='red', label='Test')
+        plt.title('Assignment 1 Part 2 Step {} - Regularization - {}-Fold Cross-Validation'.format(step, PART2_S_FOLD_S_VALUE))
+        plt.xlabel('ln(lambda)', color='#222222')
+        plt.ylabel('Root Mean Square Error', color='#222222')
+        plt.legend(loc='upper left')
+        plt.grid()
+        if SHOW_PLOTS:
+            plt.show()
+        plot_filename = "part2_step{}_regularization.png".format(step)
+        plt.savefig(plot_filename)
+        print("Saved the plot to {}".format(plot_filename))
+        plt.close()
+
 
 if __name__ == "__main__":
     usageError = False
@@ -180,7 +246,7 @@ if __name__ == "__main__":
         eg: "python3 assignment1.py part1 step2" 
         """)
         exit(1)
-    plot_filename = sys.argv[1] + "_" + sys.argv[2] + ".png"
+
     step_number = int(sys.argv[2][4:])
     if sys.argv[1] == 'part1':
         part1(step_number)
@@ -188,5 +254,3 @@ if __name__ == "__main__":
         part2(step_number)
     else:
         raise Exception("On main: Unexpected part '" + sys.argv[1] + "', 'must be one of  part1, part2"'')
-    plt.savefig(plot_filename)
-    print("Saved the plot to {}".format(plot_filename))
