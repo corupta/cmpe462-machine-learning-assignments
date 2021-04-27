@@ -3,17 +3,21 @@
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import numpy as np
+import time
 import sys
 
-SHOW_PLOTS = False
+SHOW_PLOTS = True
 # RANDOM_SEED = None
 RANDOM_SEED = 12345
+
+rng = np.random.default_rng(RANDOM_SEED)
 
 # PART1_POINT_XY_RANGE = 200  # center is 0
 PART1_POINT_X_RANGE = 200  # center is 0
 PART1_POINT_Y_RANGE = 600  # center is 0
 
-rng = np.random.default_rng(RANDOM_SEED)
+PART2_REGULARIZATION_LAMBDA = np.exp(-10)
+PART2_PRINT_WEIGHTS = True
 
 def part1(step):
     # pick random (x,y) points where both x and y are in range [-100,100)
@@ -92,20 +96,73 @@ def part1(step):
     if SHOW_PLOTS:
         plt.show()
 
+def solve_linear_regression(X, t, apply_l2_regularization = False):
+    # APPLY CLOSED FORM SOLUTION
+    # w∗ = ((X'X)^-1)X't
+    # w∗ = ((X'X + λI)^−1)X't
+    w = np.matmul(
+        np.linalg.inv(
+            np.matmul(
+                np.transpose(X),
+                X
+            ) + (PART2_REGULARIZATION_LAMBDA if apply_l2_regularization else 0)
+        ),
+        np.matmul(
+            np.transpose(X),
+            t
+        )
+    )
+
+    y = np.matmul(X, w)
+    #erms = np.sum((y - t) ** 2) / 2 + (
+    #    np.linalg.norm(w,2) * PART2_REGULARIZATION_LAMBDA / 2
+    #    if apply_l2_regularization else 0
+    #)
+    erms = np.sqrt(np.sum((y - t) ** 2) / t.size)
+
+    return w, erms, y
+    
+
 def part2(step):
     dataset_filename = ''
-    apply_i2_regularization = False
+    apply_l2_regularization = False
     if step == 1:
         dataset_filename = 'ds1.csv'
-        apply_i2_regularization = False
+        apply_l2_regularization = False
     elif step == 2:
         dataset_filename = 'ds2.csv'
-        apply_i2_regularization = False
+        apply_l2_regularization = False
     elif step == 3:
         dataset_filename = 'ds2.csv'
-        apply_i2_regularization = True
+        apply_l2_regularization = True
     else:
         raise Exception("On part2: Unexpected step " + str(step) + ", must be one of  1-3")
+    input = np.loadtxt(dataset_filename, delimiter=",", encoding="utf8")
+    # todo
+    n,m = input.shape
+    X = input[:, 0:(m-1)]
+    t = input[:, (m-1):]
+    start = time.time()
+    w, erms, y = solve_linear_regression(X, t, apply_l2_regularization)
+    end = time.time()
+
+    plt.scatter(range(n), y, s=1, color='purple', label='Predicted y')
+    plt.scatter(range(n), t, s=1, color='green', label='Target')
+    plt.plot(range(n), y-t, color='red', label='Error')
+    plt.title('Assignment 1 Part 2 Step {} '.format(step))
+    plt.xlabel('Sample Number', color='#1C2833')
+    plt.ylabel('Target Value', color='#1C2833')
+    plt.legend(loc='upper left')
+    plt.grid()
+    if SHOW_PLOTS:
+        plt.show()
+
+    print("There were {} independent variables and 1 dependent variables".format(m-1))
+    print("There were {} samples in total".format(n))
+    print("Completed in {} milliseconds".format(end - start))
+    print("Erms = {}".format(erms))
+    if PART2_PRINT_WEIGHTS:
+        print("Weights = {}".format(w.flatten()))
     pass
 
 if __name__ == "__main__":
