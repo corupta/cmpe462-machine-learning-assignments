@@ -118,4 +118,38 @@ Average Erms_test = 65.28335649367837
 
 ### Part 2 Overview
 
-TODO
+Since I implemented the close form solution, the time it takes mostly depends on 
+the matrix multiplication operations applied to the input. Thus, time spent depends on 
+the input size and how long constant number of matrix multiplication operations 
+on that input takes. Matrix multiplication can be considered `O(N^2)` where N resembles 
+the size of the whole input (not one dimension) 
+Input size is `100 * 1000 = 100k` for step 1, and `500 * 1000 = 500k` for step 2-3. Since, `500k/100k = 5` and `5^2 = 25`, 
+I would expect step 2/3 to take 25 times that of step 1. 
+We can see in the below table a similar fashion can be observed. 
+(The time spent varies across different runs but the ratio of time spent on step 1 vs 2/3 is around 25 as expected)
+
+When we check out the Erms values of step 2 and 3, we can see that the regularization did not do any change. 
+Can check out the regularization graphs above and deduce that choosing a higher lambda value doesn't perform better, and if chosen too big, causes under-fitting.
+
+When we check out the Erms values of step 1 vs 2/3, we can see that step 1 performs worse on training result. 
+That is probably related to the ratio of the number of independent variables to sample sizes. 
+That's because unless there was a clear linear generation method for data, 
+fitting a linear regression line gets harder to cover for samples as the sample size gets higher than the number of independent variables.
+So maybe, applying a polynomial/logistic regression to step 1 might have performed better.  
+
+When we check out the test Erms values however, step 1 actually does perform better. 
+That's probably again because of the same ratio. Since the number of independent variables and samples are close in step 2/3, 
+it has a higher chance of over-fitting, and that's why they're performing worse on test Erms.   
+
+See below tables for comparing above results.
+
+| Step | IV | Samples | L2 Lamda | Time (ms) | Train Erms | Test Erms |
+|--|--|--|--|--|--|--|
+| 1 | 100 | 1000 | - | 3.160 | 36.258 | 41.358 |
+| 2 | 500 | 1000 | - | 48.580 | 23.666 | 65.283 |
+| 3 | 500 | 1000 | λ = e^-10 | 52.595 | 23.665 | 65.283 |
+IV: Independent Variables
+Erms values are average of each run of s-fold cross-validation
+Time is the time spent for calculating weights including cross-validation
+Samples are the total number of samples before separating them for training and testing.
+L2 Lambda is the lambda value used for L2 Regularization if applied, `-`, otherwise.
