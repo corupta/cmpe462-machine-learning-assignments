@@ -12,6 +12,7 @@ pre {
   /* background-color: red; */
   border: 0;
   line-height: 86%;
+  margin-bottom: -8px;
 }
 
 code {

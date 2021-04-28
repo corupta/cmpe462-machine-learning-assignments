@@ -44,6 +44,8 @@ Decision Boundary is y = -3.02x + 0.13
 \
 \
 \
+\
+\
 &nbsp;
 ### Step 3
 ```
@@ -169,6 +171,12 @@ That's probably again because of the same ratio. Since the number of independent
 it has a higher chance of over-fitting, and that's why they're performing worse on test Erms.   
 
 See below tables for comparing above results.
+
+\
+\
+\
+\
+&nbsp;
 
 | Step | IV | Samples | L2 Lamda | Time (ms) | Train Erms | Test Erms |
 |--|--|--|--|--|--|--|
