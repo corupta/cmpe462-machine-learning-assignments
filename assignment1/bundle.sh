@@ -20,7 +20,7 @@ fi
 rm 462_assignment1_2020742015.zip
 rm 462_assignment1_2020742015.zip.ots
 rm 462_assignment1_2020742015_report.pdf
-markdown-pdf Readme.md -o 462_assignment1_2020742015_report.pdf -r "portrait" -m "{\"html\":true,\"breaks\":false}"
+markdown-pdf Readme.md -o 462_assignment1_2020742015_report.pdf -s md-pdf.css -r "portrait" -m "{\"html\":true,\"breaks\":false}"
 
 zip 462_assignment1_2020742015.zip -r assignment1.py requirements.txt 462_assignment1_2020742015_report.pdf
 ots-cli.js stamp 462_assignment1_2020742015.zip

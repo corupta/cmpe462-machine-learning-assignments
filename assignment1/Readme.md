@@ -2,14 +2,14 @@
 
 ## Part 1
 
-* Samples are randomly chosen from `[-100,100)` range for `x` and `[-300,300)` range for `y`. 
+Samples are randomly chosen from `[-100,100)` range for `x` and `[-300,300)` range for `y`. 
 Range of y is 3 times that of x, in order to make sure the final plot looks full 
 while the target function plot line is fully visible for that range.
  
-* Random seed can be set by changing the global variable `RANDOM_SEED`
+Random seed can be set by changing the global variable `RANDOM_SEED`
 By default it is kept as None (numpy requests a random seed from os)
 
-* Below are the results and plots for each step with `RANDOM_SEED=12345` 
+Below are the results and plots for each step with `RANDOM_SEED=12345` 
 
 ### Step 1
 ```
@@ -18,6 +18,10 @@ Calculated weights are: [  0.         531.02365676 197.25030511]
 Decision Boundary is y = -2.69x + -0.00
 ```
 ![part1_step1.png](part1_step1.png "Part1 Step1 Plot")
+
+\
+&nbsp;
+
 ### Step 2
 ```
 Finished calculation in 119 iterations
@@ -25,6 +29,22 @@ Calculated weights are: [ -50.         1122.35262344  371.32963463]
 Decision Boundary is y = -3.02x + 0.13
 ```
 ![part1_step2.png](part1_step2.png "Part1 Step2 Plot")
+
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+&nbsp;
 ### Step 3
 ```
 Finished calculation in 23867 iterations
@@ -54,32 +74,39 @@ See below table for comparing above results.
 
 ## Part 2
 
-* Implemented closed form solution, so there will not be any loss over iterations graphs. 
+Implemented closed form solution, so there will not be any loss over iterations graphs. 
 
-* Chose to apply 5-fold cross validation, 
+Chose to apply 5-fold cross validation, 
 this can be changed via the global variable, `PART2_S_FOLD_S_VALUE` 
 
-* Created a few supplementary graphs in order to get a better grasp of how well it predicts, and which lambda value to choose.
+Created a few supplementary graphs in order to get a better grasp of how well it predicts, and which lambda value to choose.
 
-* Timing includes cross validation, but none of the extra-supplementary graph generations.
+Timing includes cross validation, but none of the extra-supplementary graph generations.
 
-* Set `PART2_PLOT_PREDICTIONS=True` to create `part2_stepN_predictions.png` which 
+Set `PART2_PLOT_PREDICTIONS=True` to create `part2_stepN_predictions.png` which 
 shows predictions vs actual target values for each sample.
 
-* Set `PART2_PLOT_LAMBDA_VALUES=True` to create `part2_stepN_regularization.png`
+Set `PART2_PLOT_LAMBDA_VALUES=True` to create `part2_stepN_regularization.png`
 a graph of training & testing results (root mean square errors) over varying ln-lambda value. 
 This will be same for step2 and step3 as expected, because they are only varied by regularization. 
 
-* Chosen the lambda value for regularization as `e^-10` yet 
+Chosen the lambda value for regularization as `e^-10` yet 
 it is neither beneficial nor harmful, as it seems. 
 
-* When we choose to do 2-fold cross validation instead, 
+When we choose to do 2-fold cross validation instead, 
 regularization becomes useful because of tolerating 
 the lack of many training values causing over-fitting. 
 But such analysis is out of this report's scope. 
 If interested, one can set `PART2_S_FOLD_S_VALUE=2` and 
 `PART2_PLOT_LAMBDA_VALUES=True` and run the program on part2, 
 and check out the generated graph, `part2_stepN_regularization.png`.   
+
+\
+\
+\
+\
+\
+&nbsp;
 
 ### Step 1
 ```
