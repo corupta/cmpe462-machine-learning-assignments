@@ -2,6 +2,7 @@
 
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+import math
 import numpy as np
 import time
 import sys
@@ -21,7 +22,11 @@ PART2_S_FOLD_S_VALUE = 5
 PART2_PLOT_PREDICTIONS = False
 PART2_PLOT_LAMBDA_VALUES = False
 
-def part1(step):
+def part1(batch_size):
+    pass
+    # TODO
+
+def part1_old(step):
     # pick random (x,y) points where both x and y are in range [-100,100)
     point_count = 0
     point_size = 1
@@ -235,22 +240,26 @@ if __name__ == "__main__":
     usageError = False
     if len(sys.argv) != 3:
         usageError = True
-    elif not sys.argv[1] in ['part1', 'part2']:
+    elif not sys.argv[1] in ['part1']:
         usageError = True
-    elif not sys.argv[2] in ['step1', 'step2', 'step3']:
+    elif (not sys.argv[2] in ['step1', 'step2']) and sys.argv[2] != str(int(sys.argv[2])):
         usageError = True
     if usageError:
         print("""
         Error! Please run the program as follows:
-        python3 assignment1.py (part1|part2) (step1|step2|step3)
+        python3 assignment1.py (part1) (step1|step2|<number>)
         eg: "python3 assignment1.py part1 step2" 
         """)
         exit(1)
 
-    step_number = int(sys.argv[2][4:])
-    if sys.argv[1] == 'part1':
-        part1(step_number)
-    elif sys.argv[1] == 'part2':
-        part2(step_number)
+    batch_size = None
+    if sys.argv[2] == "step1":
+        batch_size = math.inf
+    elif sys.argv[2] == "step2":
+        batch_size = 1
     else:
-        raise Exception("On main: Unexpected part '" + sys.argv[1] + "', 'must be one of  part1, part2"'')
+        batch_size = int(sys.argv[2])
+    if sys.argv[1] == 'part1':
+        part1(batch_size)
+    else:
+        raise Exception("On main: Unexpected part '" + sys.argv[1] + "', 'must be one of  part1"'')
