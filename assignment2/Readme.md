@@ -20,7 +20,7 @@ Below are cross-validation results and loss over iteration plots for each `batch
 
 
 
-
+<div style="page-break-after: always"></div>
 
 
 
@@ -37,17 +37,23 @@ Fold #5 : iterations = 6050.0 , err_train = 0.160 , err_test = 0.128
 ```
 #### Batch Size inf (FGD) - Step Size  1e-7 (Small) - Fold #1
 ![plots/batch-inf_step-1e-07_fold-1.png](plots/batch-inf_step-1e-07_fold-1.png "Batch Size inf (FGD) - Step 1e-7 - Fold #1")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (FGD) - Step Size  1e-7 (Small) - Fold #2
 ![plots/batch-inf_step-1e-07_fold-2.png](plots/batch-inf_step-1e-07_fold-2.png "Batch Size inf (FGD) - Step 1e-7 - Fold #2")
 #### Batch Size inf (FGD) - Step Size  1e-7 (Small) - Fold #3
 ![plots/batch-inf_step-1e-07_fold-3.png](plots/batch-inf_step-1e-07_fold-3.png "Batch Size inf (FGD) - Step 1e-7 - Fold #3")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (FGD) - Step Size  1e-7 (Small) - Fold #4
 ![plots/batch-inf_step-1e-07_fold-4.png](plots/batch-inf_step-1e-07_fold-4.png "Batch Size inf (FGD) - Step 1e-7 - Fold #4")
 #### Batch Size inf (FGD) - Step Size  1e-7 (Small) - Fold #5
 ![plots/batch-inf_step-1e-07_fold-5.png](plots/batch-inf_step-1e-07_fold-5.png "Batch Size inf (FGD) - Step 1e-7 - Fold #5")
 
 
-
+<div style="page-break-after: always"></div>
 
 ### Batch Size inf (FGD) - Step Size  1e-6 (Medium)
 ```
@@ -62,16 +68,22 @@ Fold #5 : iterations = 2685.0 , err_train = 0.141 , err_test = 0.098
 ```
 #### Batch Size inf (FGD) - Step Size  1e-6 (Medium) - Fold #1
 ![plots/batch-inf_step-1e-06_fold-1.png](plots/batch-inf_step-1e-06_fold-1.png "Batch Size inf (FGD) - Step 1e-6 - Fold #1")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (FGD) - Step Size  1e-6 (Medium) - Fold #2
 ![plots/batch-inf_step-1e-06_fold-2.png](plots/batch-inf_step-1e-06_fold-2.png "Batch Size inf (FGD) - Step 1e-6 - Fold #2")
 #### Batch Size inf (FGD) - Step Size  1e-6 (Medium) - Fold #3
 ![plots/batch-inf_step-1e-06_fold-3.png](plots/batch-inf_step-1e-06_fold-3.png "Batch Size inf (FGD) - Step 1e-6 - Fold #3")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (FGD) - Step Size  1e-6 (Medium) - Fold #4
 ![plots/batch-inf_step-1e-06_fold-4.png](plots/batch-inf_step-1e-06_fold-4.png "Batch Size inf (FGD) - Step 1e-6 - Fold #4")
 #### Batch Size inf (FGD) - Step Size  1e-6 (Medium) - Fold #5
 ![plots/batch-inf_step-1e-06_fold-5.png](plots/batch-inf_step-1e-06_fold-5.png "Batch Size inf (FGD) - Step 1e-6 - Fold #5")
 
-
+<div style="page-break-after: always"></div>
 
 
 ### Batch Size inf (FGD) - Step Size 1e-5 (Big)
@@ -87,14 +99,23 @@ Fold #5 : iterations = 7998.0 , err_train = 0.073 , err_test = 0.045
 ```
 #### Batch Size inf (FGD) - Step Size 1e-5 (Big) - Fold #1
 ![plots/batch-inf_step-1e-05_fold-1.png](plots/batch-inf_step-1e-05_fold-1.png "Batch Size inf (FGD) - Step 1e-5 - Fold #1")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (FGD) - Step Size 1e-5 (Big) - Fold #2
 ![plots/batch-inf_step-1e-05_fold-2.png](plots/batch-inf_step-1e-05_fold-2.png "Batch Size inf (FGD) - Step 1e-5 - Fold #2")
 #### Batch Size inf (FGD) - Step Size 1e-5 (Big) - Fold #3
 ![plots/batch-inf_step-1e-05_fold-3.png](plots/batch-inf_step-1e-05_fold-3.png "Batch Size inf (FGD) - Step 1e-5 - Fold #3")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (FGD) - Step Size 1e-5 (Big) - Fold #4
 ![plots/batch-inf_step-1e-05_fold-4.png](plots/batch-inf_step-1e-05_fold-4.png "Batch Size inf (FGD) - Step 1e-5 - Fold #4")
 #### Batch Size inf (FGD) - Step Size 1e-5 (Big) - Fold #5
 ![plots/batch-inf_step-1e-05_fold-5.png](plots/batch-inf_step-1e-05_fold-5.png "Batch Size inf (FGD) - Step 1e-5 - Fold #5")
+
+<div style="page-break-after: always"></div>
+
 
 
 
@@ -129,14 +150,23 @@ Fold #5 : iterations = 2751.0 , err_train = 0.139 , err_test = 0.097
 ```
 #### Batch Size 32 (MiniBatch) - Step Size  1e-7 (Small) - Fold #1
 ![plots/batch-32_step-1e-07_fold-1.png](plots/batch-32_step-1e-07_fold-1.png "Batch Size 32 (MiniBatch) - Step 1e-7 - Fold #1")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size 32 (MiniBatch) - Step Size  1e-7 (Small) - Fold #2
 ![plots/batch-32_step-1e-07_fold-2.png](plots/batch-32_step-1e-07_fold-2.png "Batch Size 32 (MiniBatch) - Step 1e-7 - Fold #2")
 #### Batch Size 32 (MiniBatch) - Step Size  1e-7 (Small) - Fold #3
 ![plots/batch-32_step-1e-07_fold-3.png](plots/batch-32_step-1e-07_fold-3.png "Batch Size 32 (MiniBatch) - Step 1e-7 - Fold #3")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size 32 (MiniBatch) - Step Size  1e-7 (Small) - Fold #4
 ![plots/batch-32_step-1e-07_fold-4.png](plots/batch-32_step-1e-07_fold-4.png "Batch Size 32 (MiniBatch) - Step 1e-7 - Fold #4")
 #### Batch Size 32 (MiniBatch) - Step Size  1e-7 (Small) - Fold #5
 ![plots/batch-32_step-1e-07_fold-5.png](plots/batch-32_step-1e-07_fold-5.png "Batch Size 32 (MiniBatch) - Step 1e-7 - Fold #5")
+
+<div style="page-break-after: always"></div>
+
 
 
 
@@ -154,14 +184,23 @@ Fold #5 : iterations = 7958.0 , err_train = 0.070 , err_test = 0.043
 ```
 #### Batch Size 32 (MiniBatch) - Step Size  1e-6 (Medium) - Fold #1
 ![plots/batch-32_step-1e-06_fold-1.png](plots/batch-32_step-1e-06_fold-1.png "Batch Size 32 (MiniBatch) - Step 1e-6 - Fold #1")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size 32 (MiniBatch) - Step Size  1e-6 (Medium) - Fold #2
 ![plots/batch-32_step-1e-06_fold-2.png](plots/batch-32_step-1e-06_fold-2.png "Batch Size 32 (MiniBatch) - Step 1e-6 - Fold #2")
 #### Batch Size 32 (MiniBatch) - Step Size  1e-6 (Medium) - Fold #3
 ![plots/batch-32_step-1e-06_fold-3.png](plots/batch-32_step-1e-06_fold-3.png "Batch Size 32 (MiniBatch) - Step 1e-6 - Fold #3")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size 32 (MiniBatch) - Step Size  1e-6 (Medium) - Fold #4
 ![plots/batch-32_step-1e-06_fold-4.png](plots/batch-32_step-1e-06_fold-4.png "Batch Size 32 (MiniBatch) - Step 1e-6 - Fold #4")
 #### Batch Size 32 (MiniBatch) - Step Size  1e-6 (Medium) - Fold #5
 ![plots/batch-32_step-1e-06_fold-5.png](plots/batch-32_step-1e-06_fold-5.png "Batch Size 32 (MiniBatch) - Step 1e-6 - Fold #5")
+
+<div style="page-break-after: always"></div>
+
 
 
 
@@ -179,14 +218,23 @@ Fold #5 : iterations = 4352.0 , err_train = 0.037 , err_test = 0.027
 ```
 #### Batch Size 32 (MiniBatch) - Step Size 1e-5 (Big) - Fold #1
 ![plots/batch-32_step-1e-05_fold-1.png](plots/batch-32_step-1e-05_fold-1.png "Batch Size 32 (MiniBatch) - Step 1e-5 - Fold #1")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size 32 (MiniBatch) - Step Size 1e-5 (Big) - Fold #2
 ![plots/batch-32_step-1e-05_fold-2.png](plots/batch-32_step-1e-05_fold-2.png "Batch Size 32 (MiniBatch) - Step 1e-5 - Fold #2")
 #### Batch Size 32 (MiniBatch) - Step Size 1e-5 (Big) - Fold #3
 ![plots/batch-32_step-1e-05_fold-3.png](plots/batch-32_step-1e-05_fold-3.png "Batch Size 32 (MiniBatch) - Step 1e-5 - Fold #3")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size 32 (MiniBatch) - Step Size 1e-5 (Big) - Fold #4
 ![plots/batch-32_step-1e-05_fold-4.png](plots/batch-32_step-1e-05_fold-4.png "Batch Size 32 (MiniBatch) - Step 1e-5 - Fold #4")
 #### Batch Size 32 (MiniBatch) - Step Size 1e-5 (Big) - Fold #5
 ![plots/batch-32_step-1e-05_fold-5.png](plots/batch-32_step-1e-05_fold-5.png "Batch Size 32 (MiniBatch) - Step 1e-5 - Fold #5")
+
+<div style="page-break-after: always"></div>
+
 
 
 
@@ -219,14 +267,23 @@ Fold #5 : iterations = 6367.0 , err_train = 0.049 , err_test = 0.032
 ```
 #### Batch Size inf (SGD) - Step Size  1e-7 (Small) - Fold #1
 ![plots/batch-1_step-1e-07_fold-1.png](plots/batch-1_step-1e-07_fold-1.png "Batch Size inf (SGD) - Step 1e-7 - Fold #1")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (SGD) - Step Size  1e-7 (Small) - Fold #2
 ![plots/batch-1_step-1e-07_fold-2.png](plots/batch-1_step-1e-07_fold-2.png "Batch Size inf (SGD) - Step 1e-7 - Fold #2")
 #### Batch Size inf (SGD) - Step Size  1e-7 (Small) - Fold #3
 ![plots/batch-1_step-1e-07_fold-3.png](plots/batch-1_step-1e-07_fold-3.png "Batch Size inf (SGD) - Step 1e-7 - Fold #3")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (SGD) - Step Size  1e-7 (Small) - Fold #4
 ![plots/batch-1_step-1e-07_fold-4.png](plots/batch-1_step-1e-07_fold-4.png "Batch Size inf (SGD) - Step 1e-7 - Fold #4")
 #### Batch Size inf (SGD) - Step Size  1e-7 (Small) - Fold #5
 ![plots/batch-1_step-1e-07_fold-5.png](plots/batch-1_step-1e-07_fold-5.png "Batch Size inf (SGD) - Step 1e-7 - Fold #5")
+
+<div style="page-break-after: always"></div>
+
 
 
 
@@ -244,14 +301,23 @@ Fold #5 : iterations = 3217.0 , err_train = 0.030 , err_test = 0.024
 ```
 #### Batch Size inf (SGD) - Step Size  1e-6 (Medium) - Fold #1
 ![plots/batch-1_step-1e-06_fold-1.png](plots/batch-1_step-1e-06_fold-1.png "Batch Size inf (SGD) - Step 1e-6 - Fold #1")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (SGD) - Step Size  1e-6 (Medium) - Fold #2
 ![plots/batch-1_step-1e-06_fold-2.png](plots/batch-1_step-1e-06_fold-2.png "Batch Size inf (SGD) - Step 1e-6 - Fold #2")
 #### Batch Size inf (SGD) - Step Size  1e-6 (Medium) - Fold #3
 ![plots/batch-1_step-1e-06_fold-3.png](plots/batch-1_step-1e-06_fold-3.png "Batch Size inf (SGD) - Step 1e-6 - Fold #3")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (SGD) - Step Size  1e-6 (Medium) - Fold #4
 ![plots/batch-1_step-1e-06_fold-4.png](plots/batch-1_step-1e-06_fold-4.png "Batch Size inf (SGD) - Step 1e-6 - Fold #4")
 #### Batch Size inf (SGD) - Step Size  1e-6 (Medium) - Fold #5
 ![plots/batch-1_step-1e-06_fold-5.png](plots/batch-1_step-1e-06_fold-5.png "Batch Size inf (SGD) - Step 1e-6 - Fold #5")
+
+<div style="page-break-after: always"></div>
+
 
 
 
@@ -269,162 +335,121 @@ Fold #5 : iterations = 2342.0 , err_train = 0.018 , err_test = 0.017
 ```
 #### Batch Size inf (SGD) - Step Size 1e-5 (Big) - Fold #1
 ![plots/batch-1_step-1e-05_fold-1.png](plots/batch-1_step-1e-05_fold-1.png "Batch Size inf (SGD) - Step 1e-5 - Fold #1")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (SGD) - Step Size 1e-5 (Big) - Fold #2
 ![plots/batch-1_step-1e-05_fold-2.png](plots/batch-1_step-1e-05_fold-2.png "Batch Size inf (SGD) - Step 1e-5 - Fold #2")
 #### Batch Size inf (SGD) - Step Size 1e-5 (Big) - Fold #3
 ![plots/batch-1_step-1e-05_fold-3.png](plots/batch-1_step-1e-05_fold-3.png "Batch Size inf (SGD) - Step 1e-5 - Fold #3")
+
+<div style="page-break-after: always"></div>
+
 #### Batch Size inf (SGD) - Step Size 1e-5 (Big) - Fold #4
 ![plots/batch-1_step-1e-05_fold-4.png](plots/batch-1_step-1e-05_fold-4.png "Batch Size inf (SGD) - Step 1e-5 - Fold #4")
 #### Batch Size inf (SGD) - Step Size 1e-5 (Big) - Fold #5
 ![plots/batch-1_step-1e-05_fold-5.png](plots/batch-1_step-1e-05_fold-5.png "Batch Size inf (SGD) - Step 1e-5 - Fold #5")
 
+<div style="page-break-after: always"></div>
+
+
 
  
 
 
 
-Samples are randomly chosen from `[-100,100)` range for `x` and `[-300,300)` range for `y`. 
-Range of y is 3 times that of x, in order to make sure the final plot looks full 
-while the target function plot line is fully visible for that range.
- 
-Random seed can be set by changing the global variable `RANDOM_SEED`
-By default it is kept as None (numpy requests a random seed from os)
 
-Below are the results and plots for each step with `RANDOM_SEED=12345` 
-
-### Step 1
-```
-Finished calculation in 25 iterations
-Calculated weights are: [  0.         531.02365676 197.25030511]
-Decision Boundary is y = -2.69x + -0.00
-```
-![part1_step1.png](part1_step1.png "Part1 Step1 Plot")
-
-\
-&nbsp;
-
-### Step 2
-```
-Finished calculation in 119 iterations
-Calculated weights are: [ -50.         1122.35262344  371.32963463]
-Decision Boundary is y = -3.02x + 0.13
-```
-![part1_step2.png](part1_step2.png "Part1 Step2 Plot")
-
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-&nbsp;
-### Step 3
-```
-Finished calculation in 23867 iterations
-Calculated weights are: [-6418.         20547.05277251  6856.03386458]
-Decision Boundary is y = -3.00x + 0.94
-```
-![part1_step3.png](part1_step3.png "Part1 Step3 Plot")
-    
 ### Part 1 Overview
 
-When we check out above results, we can see 
-that the decision boundary gets closer to the original target function 
-as the number of sampled points are increased.
+When we check out above results, we see no big difference between each folds and no fold has a very big difference in its test vs train errors.
+So, it is safe to take average of results over folds and investigate those. 
 
-Also, as the number of sampled points are increased, 
-PLA needs to make much more iterations to fully converge.
+I can't see a pattern regarding avg iterations and step size/batch_size/error. So, I can say that it differs somewhat randomly for different parameters. My guess is that it is dependent on how lucky I are to come across a local/global maxima earlier with the current parameters, since the input includes many (18) features and thus many random-ish local maximas.
 
-See below table for comparing above results.
+The rate of error train and test seems close in each case, thus none of them are overfit.
+
+We can see that both average error train and test are lower in smaller batch sizes or bigger step sizes while avg iterations are not directly affected with those changes.
+  
+Not included in results but, batch_size is inversely correlated with training speed as it can't leverage 
+  fast matrix multiplication operations with same weights, on smaller batch sizes. 
+  * batch-size inf with default step-size takes 2.5 seconds
+  * batch-size 32 with default step-size takes 26.5 seconds
+  * batch-size 1 with default step-size takes 271.1 seconds
+
+When considering the trade-off of better error rates vs training time, mini-batch offers the best fit as its error is only slightly higher than SGD but runs much faster. Likewise, it runs only slightly slower than FGD but its error rate is less.
 
 
-|Step| Samples | Iterations |y = -3x + 1|
-|--|--|--|--|
-|1|50|25|y = -2.69x + -0.00|
-|2|100|119|y = -3.02x + 0.13|
-|3|5000|23867|y = -3.00x + 0.94|
+See below tables for comparing above results more easily.
 
 
-## Part 2
+| Batch Size | Step size | Avg Error Train | Avg Error Test | Avg Iterations |
+|--|--|--|--|--|
+|inf|1e-07|0.151|0.153|6388.4|
+|inf|1e-06|0.131|0.133|2790.0|
+|inf|1e-05|0.072|0.077|7353.0|
+|32|1e-07|0.130|0.132|2824.2|
+|32|1e-06|0.069|0.073|7410.0|
+|32|1e-05|0.035|0.041|4304.0|
+|1|1e-07|0.048|0.053|6158.4|
+|1|1e-06|0.028|0.035|3121.0|
+|1|1e-05|0.017|0.026|2324.2|
 
-Implemented closed form solution, so there will not be any loss over iterations graphs. 
 
-Chose to apply 5-fold cross validation, 
-this can be changed via the global variable, `PART2_S_FOLD_S_VALUE` 
+<div style="page-break-after: always"></div>
 
-Created a few supplementary graphs in order to get a better grasp of how well it predicts, and which lambda value to choose.
+<div class="table-small-font">
 
-Timing includes cross validation, but none of the extra-supplementary graph generations.
+| Batch Size | Step size | Fold | Error Train | Error Test | Iterations |
+|--|--|--|--|--|--|
+|inf|1e-07|1|0.145|0.178|6473|
+|inf|1e-07|2|0.149|0.155|6485|
+|inf|1e-07|3|0.150|0.153|6358|
+|inf|1e-07|4|0.149|0.150|6576|
+|inf|1e-07|5|0.160|0.128|6050|
+|inf|1e-06|1|0.126|0.159|2724|
+|inf|1e-06|2|0.130|0.136|2825|
+|inf|1e-06|3|0.131|0.135|2678|
+|inf|1e-06|4|0.127|0.138|3038|
+|inf|1e-06|5|0.141|0.098|2685|
+|inf|1e-05|1|0.074|0.087|6927|
+|inf|1e-05|2|0.072|0.090|7126|
+|inf|1e-05|3|0.072|0.067|7552|
+|inf|1e-05|4|0.070|0.096|7162|
+|inf|1e-05|5|0.073|0.045|7998|
+|32|1e-07|1|0.126|0.159|2728|
+|32|1e-07|2|0.129|0.135|2853|
+|32|1e-07|3|0.130|0.134|2694|
+|32|1e-07|4|0.126|0.137|3095|
+|32|1e-07|5|0.139|0.097|2751|
+|32|1e-06|1|0.070|0.084|7020|
+|32|1e-06|2|0.068|0.085|7248|
+|32|1e-06|3|0.068|0.064|7596|
+|32|1e-06|4|0.066|0.092|7228|
+|32|1e-06|5|0.070|0.043|7958|
+|32|1e-05|1|0.036|0.040|4251|
+|32|1e-05|2|0.034|0.045|4287|
+|32|1e-05|3|0.035|0.037|4362|
+|32|1e-05|4|0.033|0.054|4268|
+|32|1e-05|5|0.037|0.027|4352|
+|1|1e-07|1|0.049|0.056|6024|
+|1|1e-07|2|0.047|0.062|6171|
+|1|1e-07|3|0.048|0.046|6226|
+|1|1e-07|4|0.047|0.070|6004|
+|1|1e-07|5|0.049|0.032|6367|
+|1|1e-06|1|0.029|0.034|3066|
+|1|1e-06|2|0.028|0.036|2971|
+|1|1e-06|3|0.028|0.033|3177|
+|1|1e-06|4|0.027|0.047|3174|
+|1|1e-06|5|0.030|0.024|3217|
+|1|1e-05|1|0.016|0.030|2324|
+|1|1e-05|2|0.019|0.017|2225|
+|1|1e-05|3|0.015|0.029|2386|
+|1|1e-05|4|0.016|0.039|2344|
+|1|1e-05|5|0.018|0.017|2342|
 
-Set `PART2_PLOT_PREDICTIONS=True` to create `part2_stepN_predictions.png` which 
-shows predictions vs actual target values for each sample.
+</div>
 
-Set `PART2_PLOT_LAMBDA_VALUES=True` to create `part2_stepN_regularization.png`
-a graph of training & testing results (root mean square errors) over varying ln-lambda value. 
-This will be same for step2 and step3 as expected, because they are only varied by regularization. 
-
-Chosen the lambda value for regularization as `e^-10` yet 
-it is neither beneficial nor harmful, as it seems. 
-
-When we choose to do 2-fold cross validation instead, 
-regularization becomes useful because of tolerating 
-the lack of many training values causing over-fitting. 
-But such analysis is out of this report's scope. 
-If interested, one can set `PART2_S_FOLD_S_VALUE=2` and 
-`PART2_PLOT_LAMBDA_VALUES=True` and run the program on part2, 
-and check out the generated graph, `part2_stepN_regularization.png`.   
-
-\
-\
-\
-\
-\
-&nbsp;
-
-### Step 1
-```
-Applying 5-fold cross validation
-There were 100 independent variables and 1 dependent variables
-There were 1000 samples in total
-Completed in 3.160 milliseconds
-Average Erms_train = 36.257771814312136
-Average Erms_test = 41.3584787667631
-```
-![part2_step1_predictions.png](part2_step1_predictions.png "Part2 Step1 Predictions Plot")
-![part2_step1_regularization.png](part2_step1_regularization.png "Part2 Step1 Regularization Plot")
-### Step 2
-```
-Applying 5-fold cross validation
-There were 500 independent variables and 1 dependent variables
-There were 1000 samples in total
-Completed in 48.580 milliseconds
-Average Erms_train = 23.6657974544233
-Average Erms_test = 65.28337321386573
-```
-![part2_step2_predictions.png](part2_step2_predictions.png "Part2 Step2 Predictions Plot")
-![part2_step2_regularization.png](part2_step2_regularization.png "Part2 Step2 Regularization Plot")
-### Step 3
-```
-Applying 5-fold cross validation
-There were 500 independent variables and 1 dependent variables
-There were 1000 samples in total
-Completed in 52.595 milliseconds
-Average Erms_train = 23.665797456855017
-Average Erms_test = 65.28335649367837
-```
-![part2_step3_predictions.png](part2_step3_predictions.png "Part2 Step3 Predictions Plot")
-![part2_step3_regularization.png](part2_step3_regularization.png "Part2 Step3 Regularization Plot")
-
+<div style="page-break-after: always"></div>
 
 ### Part 2
 
@@ -454,7 +479,9 @@ Below is the given input data
 | eagle | no | yes | no | yes | non-mammals |
 | test | yes | no | yes | no | ??? |
 
-When we count mammal vs non-mammal count per class we can obtain below table:
+<div style="page-break-after: always"></div>
+
+When I count mammal vs non-mammal count per class I can obtain below table:
 
 | feature | # mammals | # non-mammals |
 |--|--|--|
@@ -492,17 +519,15 @@ For our case:
 P(mammals | GiveBirth=yes, CanFly=no, LiveInWater=yes, HaveLegs=no)
 ∝ 
 P(GiveBirth=yes|mammals) * P(CanFly=no|mammals)
-* P(LiveInWater=yes|mammals) * P(HaveLegs=no|mammals) 
-* P(mammals)
-
+* P(LiveInWater=yes|mammals) * P(HaveLegs=no|mammals) * P(mammals)
 and
-
 P(non-mammals | GiveBirth=yes, CanFly=no, LiveInWater=yes, HaveLegs=no)
 ∝ 
 P(GiveBirth=yes|non-mammals) * P(CanFly=no|non-mammals)
-* P(LiveInWater=yes|non-mammals) * P(HaveLegs=no|non-mammals) 
-* P(non-mammals)
+* P(LiveInWater=yes|non-mammals) * P(HaveLegs=no|non-mammals) * P(non-mammals)
 ```
+
+<div style="page-break-after: always"></div>
 
 Using the frequency table we can compute all these:
 ```
@@ -538,4 +563,4 @@ P(mammals | GiveBirth=yes, CanFly=no, LiveInWater=yes, HaveLegs=no)
 >
 P(non-mammals | GiveBirth=yes, CanFly=no, LiveInWater=yes, HaveLegs=no)
 ```
-Thus, we would guess that "test" belongs to "mammals" class.
+Thus, I would guess that "test" belongs to "mammals" class.

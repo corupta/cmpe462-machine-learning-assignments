@@ -291,8 +291,8 @@ def calculate_all():
 
 
 if __name__ == "__main__":
-    calculate_all()
-    exit(0)
+    # calculate_all()
+    # exit(0)
     usageError = False
     if len(sys.argv) != 3:
         usageError = True
