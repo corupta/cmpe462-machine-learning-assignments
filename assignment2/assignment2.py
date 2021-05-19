@@ -180,7 +180,7 @@ target_name_to_number = {
     "van": 1,
     "saab": -1
 }
-def part1(batch_size):
+def part1(batch_size, step_size = STEP_SIZE_DEFAULT):
     dataset_filename = 'vehicle.csv'
     input = np.loadtxt(dataset_filename, delimiter=",", encoding="utf8", skiprows=1, dtype=str)
     # select those with target_classes only
@@ -189,17 +189,13 @@ def part1(batch_size):
     X = input[:, 0:(m-1)].astype(np.float)
     t = np.vectorize(target_name_to_number.get)(input[:, (m-1):])
     start = time.time()
-    err_train_average, err_test_average, err_train_values, err_test_values, iteration_count_values = solve_logistic_regression_s_fold(X, t, batch_size)
+    err_train_average, err_test_average, err_train_values, err_test_values, iteration_count_values = solve_logistic_regression_s_fold(X, t, batch_size, step_size)
     end = time.time()
 
     print("Applying {}-fold cross validation".format(S_FOLD_S_VALUE))
     print("There were {} independent variables and 1 dependent variables".format(m - 1))
     print("There were {} samples in total".format(n))
     print("Completed in {:.3f} milliseconds".format((end - start) * 1000))
-
-
-    pass
-    # TODO
 
 def part1_old(step):
     # pick random (x,y) points where both x and y are in range [-100,100)
