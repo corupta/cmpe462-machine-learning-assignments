@@ -114,10 +114,11 @@ def solve_logistic_regression(X, t, batch_size = np.inf, step_size=STEP_SIZE_DEF
             # update weights
             w = w - step_size * g
         loss_list.append(current_loss)
-    return w, current_iteration
+    return w, current_iteration, loss_list
 
 
 metrics_path = 'metrics'
+plots_path = 'plots'
 def solve_logistic_regression_s_fold(X, t, batch_size = np.inf, step_size=STEP_SIZE_DEFAULT):
     n, m = X.shape
     sample_per_fold = int(n / S_FOLD_S_VALUE)
@@ -127,6 +128,8 @@ def solve_logistic_regression_s_fold(X, t, batch_size = np.inf, step_size=STEP_S
     err_test_values = np.zeros(S_FOLD_S_VALUE)
     err_train_values = np.zeros(S_FOLD_S_VALUE)
     iteration_count_values = np.zeros(S_FOLD_S_VALUE)
+    if not os.path.exists(plots_path):
+        os.makedirs(plots_path)
     for i in range(S_FOLD_S_VALUE):
         n_start = i * sample_per_fold
         n_end = (i+1) * sample_per_fold
@@ -141,7 +144,7 @@ def solve_logistic_regression_s_fold(X, t, batch_size = np.inf, step_size=STEP_S
             t[n_end:, :]
         ))
         print("Running for Fold #{}".format(i))
-        w, iteration_count = solve_logistic_regression(X_train, t_train, batch_size, step_size)
+        w, iteration_count, loss_list = solve_logistic_regression(X_train, t_train, batch_size, step_size)
         print("Finished in {} iterations".format(iteration_count))
         y_train = sigmoid(np.matmul(X_train, w))
         y_test = sigmoid(np.matmul(X_test, w))
@@ -150,6 +153,9 @@ def solve_logistic_regression_s_fold(X, t, batch_size = np.inf, step_size=STEP_S
         err_train_values[i] = err_train
         err_test_values[i] = err_test
         iteration_count_values[i] = iteration_count
+        plot_filename = "batch-{}_step-{}_fold-{}.png".format(batch_size, step_size, i)
+        plot_filepath = os.path.join(plots_path, plot_filename)
+        # TODO create and save plots here
     err_test_average = np.sum(err_test_values) / S_FOLD_S_VALUE
     err_train_average = np.sum(err_train_values) / S_FOLD_S_VALUE
     if not os.path.exists(metrics_path):
