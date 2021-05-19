@@ -1,0 +1,8 @@
+Average err_train = 0.0720774984544428
+Average err_test = 0.07694272484894403
+Stats by Fold:
+Fold #1 : iterations = 6927.0 , err_train = 0.074 , err_test = 0.087
+Fold #2 : iterations = 7126.0 , err_train = 0.072 , err_test = 0.090
+Fold #3 : iterations = 7552.0 , err_train = 0.072 , err_test = 0.067
+Fold #4 : iterations = 7162.0 , err_train = 0.070 , err_test = 0.096
+Fold #5 : iterations = 7998.0 , err_train = 0.073 , err_test = 0.045

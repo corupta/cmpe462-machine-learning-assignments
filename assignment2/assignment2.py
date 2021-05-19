@@ -131,7 +131,7 @@ def solve_logistic_regression_s_fold(X, t, batch_size = np.inf, step_size=STEP_S
             t[0:n_start, :],
             t[n_end:, :]
         ))
-        print("Running for Fold #{}".format(i))
+        print("Running for Fold #{}".format(i+1))
         w, iteration_count, loss_list = solve_logistic_regression(X_train, t_train, batch_size, step_size)
         print("Finished in {} iterations".format(iteration_count))
         y_train = sigmoid(np.matmul(X_train, w))
@@ -143,11 +143,11 @@ def solve_logistic_regression_s_fold(X, t, batch_size = np.inf, step_size=STEP_S
         iteration_count_values[i] = iteration_count
 
         # create plot
-        plot_filename = "batch-{}_step-{}_fold-{}.png".format(batch_size, step_size, i)
+        plot_filename = "batch-{}_step-{}_fold-{}.png".format(batch_size, step_size, i+1)
         plot_filepath = os.path.join(plots_path, plot_filename)
         plt.plot(range(iteration_count), loss_list, color='red', label='Loss per iteration')
         # plt.scatter(range(iteration_count), loss_list, s=1, c="red")
-        plt.title('Assignment 2 Part 1 Batch Size {} - Step Size {} - Fold #{}'.format(batch_size, step_size, i))
+        plt.title('Assignment 2 Part 1 Batch Size {} - Step Size {} - Fold #{}'.format(batch_size, step_size, i+1))
         plt.xlabel('iterations', color='#222222')
         plt.ylabel('loss', color='#222222')
         plt.legend(loc='upper left')
@@ -291,8 +291,8 @@ def calculate_all():
 
 
 if __name__ == "__main__":
-    # calculate_all()
-    # exit(0)
+    calculate_all()
+    exit(0)
     usageError = False
     if len(sys.argv) != 3:
         usageError = True
