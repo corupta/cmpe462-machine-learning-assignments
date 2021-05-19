@@ -158,21 +158,6 @@ def solve_logistic_regression_s_fold(X, t, batch_size = np.inf, step_size=STEP_S
         # TODO create and save plots here
     err_test_average = np.sum(err_test_values) / S_FOLD_S_VALUE
     err_train_average = np.sum(err_train_values) / S_FOLD_S_VALUE
-    if not os.path.exists(metrics_path):
-        os.makedirs(metrics_path)
-    metric_filename = "batch-{}_step-{}.txt".format(batch_size, step_size)
-    with open(os.path.join(metrics_path, metric_filename), 'w') as f:
-        lines = [
-            "Average err_train = {}".format(err_train_average),
-            "Average err_test = {}".format(err_test_average),
-            "Stats by Fold:"
-        ]
-        for i in range(S_FOLD_S_VALUE):
-            lines.append("Fold #{} : iterations = {} , err_train = {:.3f} , err_test = {:.3f}".format(
-                i+1,iteration_count_values[i], err_train_values[i], err_test_values[i]))
-        for line in lines:
-            print(line)
-        f.write("\n".join(lines))
 
     return err_train_average, err_test_average, err_train_values, err_test_values, iteration_count_values
 # van or not?
@@ -196,6 +181,22 @@ def part1(batch_size, step_size = STEP_SIZE_DEFAULT):
     print("There were {} independent variables and 1 dependent variables".format(m - 1))
     print("There were {} samples in total".format(n))
     print("Completed in {:.3f} milliseconds".format((end - start) * 1000))
+
+    if not os.path.exists(metrics_path):
+        os.makedirs(metrics_path)
+    metric_filename = "batch-{}_step-{}.txt".format(batch_size, step_size)
+    with open(os.path.join(metrics_path, metric_filename), 'w') as f:
+        lines = [
+            "Average err_train = {}".format(err_train_average),
+            "Average err_test = {}".format(err_test_average),
+            "Stats by Fold:"
+        ]
+        for i in range(S_FOLD_S_VALUE):
+            lines.append("Fold #{} : iterations = {} , err_train = {:.3f} , err_test = {:.3f}".format(
+                i+1,iteration_count_values[i], err_train_values[i], err_test_values[i]))
+        for line in lines:
+            print(line)
+        f.write("\n".join(lines))
 
 def part1_old(step):
     # pick random (x,y) points where both x and y are in range [-100,100)
