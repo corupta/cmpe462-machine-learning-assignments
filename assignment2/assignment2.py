@@ -9,20 +9,8 @@ import sys
 import os
 
 SHOW_PLOTS = False
-RANDOM_SEED = None
-# RANDOM_SEED = 12345
 
-rng = np.random.default_rng(RANDOM_SEED)
-
-# PART1_POINT_XY_RANGE = 200  # center is 0
-PART1_POINT_X_RANGE = 200  # center is 0
-PART1_POINT_Y_RANGE = 600  # center is 0
-
-PART2_REGULARIZATION_LAMBDA = np.exp(-10)
-PART2_PLOT_PREDICTIONS = False
-PART2_PLOT_LAMBDA_VALUES = False
 S_FOLD_S_VALUE = 5
-
 MIN_LOSS_CHANGE_FOR_STOP = 0.00001
 STEP_SIZE_DEFAULT = 0.000001
 
@@ -153,9 +141,22 @@ def solve_logistic_regression_s_fold(X, t, batch_size = np.inf, step_size=STEP_S
         err_train_values[i] = err_train
         err_test_values[i] = err_test
         iteration_count_values[i] = iteration_count
+
+        # create plot
         plot_filename = "batch-{}_step-{}_fold-{}.png".format(batch_size, step_size, i)
         plot_filepath = os.path.join(plots_path, plot_filename)
-        # TODO create and save plots here
+        plt.plot(range(iteration_count), loss_list, color='red', label='Loss per iteration')
+        # plt.scatter(range(iteration_count), loss_list, s=1, c="red")
+        plt.title('Assignment 2 Part 1 Batch Size {} - Step Size {} - Fold #{}'.format(batch_size, step_size, i))
+        plt.xlabel('iterations', color='#222222')
+        plt.ylabel('loss', color='#222222')
+        plt.legend(loc='upper left')
+        plt.grid()
+        if SHOW_PLOTS:
+            plt.show()
+        plt.savefig(plot_filepath)
+        print("Saved the plot to {}".format(plot_filepath))
+        plt.close()
     err_test_average = np.sum(err_test_values) / S_FOLD_S_VALUE
     err_train_average = np.sum(err_train_values) / S_FOLD_S_VALUE
 
