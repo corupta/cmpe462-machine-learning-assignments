@@ -22,7 +22,10 @@ When I ran it across the dataset, I was somewhat disappointed seeing it consiste
 It seems that it can do a perfect split by either `petal-length`, or `petal-width` feature.
 In order to make sure it can form a tree via recursive behavior, I've modified some of the inputs to break the above fashion. Doing so I was able to obtain longer trees and validate that it works.
 
-#### Step 1
+<div style="page-break-after: always"></div>
+
+
+### Part 1 Step 1
 Below is the output:
 ```
 DT petal-length 1.00
@@ -39,7 +42,10 @@ Below is a sample tree from the modified input:
 (2, 2.915, 0, (2, 4.295121951219513, (2, 3.8176470588235296, (3, 1.3714285714285714, 1, 0), 1), 1))
 ```
 
-#### Step 2
+<div style="page-break-after: always"></div>
+
+
+### Part 1 Step 2
 Below is the output:
 ```
 DT petal-length 1.00
@@ -56,7 +62,10 @@ Below is a sample tree from the modified input:
 (2, 2.915, 0, (2, 4.295121951219513, (2, 3.8176470588235296, (3, 1.3714285714285714, 1, 0), 1), 1))
 ```
 
-#### Part 1 Overview
+<div style="page-break-after: always"></div>
+
+
+### Part 1 Overview
 I was able to validate that gain_ratio is applied on step 2 and not on step 1 while checking the calculations on debugger, but other than that 
 it didn't seem to have an effect on the outputs, and a more complicated dataset is needed to do so.
 Thus, both step 1 and step 2 outcomes are the same. It achieves perfect accuracy very easily.
@@ -65,9 +74,10 @@ Might try applying it on a totally randomly
 generated dataset in the future to check out the difference from information gain.
 
 
+<div style="page-break-after: always"></div>
 
 
-### Part 2
+## Part 2
 
 Overall, the implementation is pretty straightforward.
 Something interesting was that I first received `WARNING: reaching max number of iterations` on some C values.
@@ -78,7 +88,6 @@ Thus, I applied normalization and it worked successfully. (Did not affected accu
 
 I've chosen alternative c values as `0.01, 0.1, 1.0, 10.0, 100.0`
 and ran across 4 kernel types `linear, polynomial, radial basis function, sigmoid` denoted by numbers as 0-3 respectively.
-
 I've ran it for 5x4 times as all combination of c values and kernel types to get an overview, first. (See below table)
 Then, I've chosen `c=10.0` and `kernel=0` as default values for step 1 and step 2
 
@@ -105,7 +114,9 @@ Then, I've chosen `c=10.0` and `kernel=0` as default values for step 1 and step 
 |2|100.0|0.9763|145|  
 |3|100.0|0.9704|180|
 
-#### Part 2 Step 1
+<div style="page-break-after: always"></div>
+
+### Part 2 Step 1
 Below is the output:
 ```
 SVM kernel=0 C=0.01 acc=0.7692307692307694 n=346
@@ -117,7 +128,7 @@ SVM kernel=0 C=100.0 acc=0.9881656804733728 n=65
 * We can see that number of support vectors decreases as C value increases.
 * We can see that accuracy also increases by preventing possible overfit.
 
-#### Part 2 Step 2
+### Part 2 Step 2
 Below is the output:
 ```
 SVM kernel=0 C=10.0 acc=0.9763313609467456 n=127
