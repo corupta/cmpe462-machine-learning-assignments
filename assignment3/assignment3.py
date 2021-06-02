@@ -10,18 +10,8 @@ from libsvm.svmutil import svm_train, svm_predict
 
 PRINT_USEFUL_EXTRA_TEXT = False
 
-SHOW_PLOTS = False
-RANDOM_SEED = None
-# RANDOM_SEED = 12345
-
-rng = np.random.default_rng(RANDOM_SEED)
 
 PART1_MAX_TREE_DEPTH = 6  # max 5 splits / leaf is level 6 at max
-
-PART2_REGULARIZATION_LAMBDA = np.exp(-10)
-PART2_S_FOLD_S_VALUE = 5
-PART2_PLOT_PREDICTIONS = False
-PART2_PLOT_LAMBDA_VALUES = False
 
 part1_number_to_class = ["Iris-setosa", "Iris-versicolor"]
 part1_class_to_number = {}
