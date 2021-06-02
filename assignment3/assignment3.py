@@ -5,8 +5,10 @@ import matplotlib.colors as mcolors
 import numpy as np
 import time
 import sys
+from libsvm.svm import svm_problem, svm_parameter, svm_model
+from libsvm.svmutil import svm_train, svm_predict
 
-PRINT_USEFUL_EXTRA_TEXT = True
+PRINT_USEFUL_EXTRA_TEXT = False
 
 SHOW_PLOTS = False
 RANDOM_SEED = None
@@ -21,10 +23,10 @@ PART2_S_FOLD_S_VALUE = 5
 PART2_PLOT_PREDICTIONS = False
 PART2_PLOT_LAMBDA_VALUES = False
 
-number_to_class = ["Iris-setosa", "Iris-versicolor"]
-class_to_number = {}
-for ind, class_name in enumerate(number_to_class):
-    class_to_number[class_name] = ind
+part1_number_to_class = ["Iris-setosa", "Iris-versicolor"]
+part1_class_to_number = {}
+for ind, class_name in enumerate(part1_number_to_class):
+    part1_class_to_number[class_name] = ind
 
 def prob_to_entropy(prob):
     return prob if prob == 0 else - prob * np.log2(prob)
@@ -130,7 +132,7 @@ def part1(step):
     input = input[1:, :]
     n, m = input.shape
     X = input[:, 0:(m - 1)].astype(np.float)
-    t = np.vectorize(class_to_number.get)(input[:, (m - 1):])
+    t = np.vectorize(part1_class_to_number.get)(input[:, (m - 1):])
 
     start = time.time()
     accuracy, root_param_index = solve_decision_tree(
@@ -143,199 +145,71 @@ def part1(step):
     print("DT {} {:.2f}".format(root_param, accuracy))
     return
 
-    points = np.concatenate((
-        rng.random((point_count, 1)) * PART1_POINT_X_RANGE - (PART1_POINT_X_RANGE/2),
-        rng.random((point_count, 1)) * PART1_POINT_Y_RANGE - (PART1_POINT_Y_RANGE / 2),
-    ), axis=1)
-    classes = []
-    for [x, y] in points:
-        classes.append(0 if y < -3 * x + 1 else 1)
-        # assume c=1 if y = -3x+1
-    classes = np.array(classes)
 
-    # points and classes are ready now, start PLA
-    target_outputs = 2 * classes - 1  # map class 0 to -1, class 1 to 1 for PLA
-    inputs_with_dummy_x0 = np.concatenate((np.ones((point_count, 1)), points), axis=1)
-    w = np.zeros((3, 1))  # w means current weights
-    t = 1  # t means current iteration index
-    while True:
-        if t % 1000 == 1:
-            print("PLA ITERATION #{} STARTED".format(t))
-        calculated = np.matmul(inputs_with_dummy_x0, w)
-        misclassified = []
-        for i in range(point_count):
-            c = calculated[i, 0]
-            c_sign = -1 if c < 0 else 1  # assume sign of 0 is 1 (+)
-            if c_sign != target_outputs[i]:
-                misclassified.append(i)
-        if t==1000000: # prevent infinite loop just in case
-            break
-        if len(misclassified) == 0:
-            break  # complete PLA
-        chosen_misclassified_index = misclassified[rng.integers(0, len(misclassified))]
-        input_misclassfied = inputs_with_dummy_x0[chosen_misclassified_index]
-        target_output_misclassified = target_outputs[chosen_misclassified_index]
-        # update weights
-        u = np.reshape(input_misclassfied * target_output_misclassified, (3, 1))
-        w += u
-        t += 1  # next iteration
-    print("Finished calculation in {} iterations".format(t))
-    print("Calculated weights are: {}".format(w.flatten()))
-    # our decision boundary is ready:    sign ( w0 * 1 + w1 * x + w2 * y )
-    # which is  c = 1  if  w0 * 1 + w1 * x + w2 * y >= 0  else 0
-    # thus, our decision boundary is =>  y = (- w0 - w1 * x) / w2
-    # if we try to write it as y = mx + b, m = -w1/w2, b = -w0/w2
-    m = -w[1, 0] / w[2, 0]
-    b = -w[0, 0] / w[2, 0]
 
-    print('Decision Boundary is y = {:.2f}x + {:.2f}'.format(m, b))
 
-    line_x = np.linspace(- (PART1_POINT_X_RANGE/2), + (PART1_POINT_X_RANGE/2), 100)
+part2_number_to_class = ["M", "B"]
+part2_class_to_number = {}
+for ind, class_name in enumerate(part2_number_to_class):
+    part2_class_to_number[class_name] = ind
 
-    points_color_map = mcolors.ListedColormap(["red", "blue"])
-
-    plt.plot(line_x, m * line_x + b, color='purple', label='Decision Boundary y = {:.2f}x + {:.2f}'.format(m, b))
-    plt.plot(line_x, -3 * line_x + 1, color='green', label='Target Function y = -3x + 1')
-    plt.scatter(points[:, 0], points[:, 1], s=point_size, c=classes, cmap=points_color_map)
-    plt.title('Assignment 1 Part 1 Step {} - {} points '.format(step, point_count))
-    plt.xlabel('x', color='#222222')
-    plt.ylabel('y', color='#222222')
-    plt.legend(loc='upper left')
-    plt.grid()
-    if SHOW_PLOTS:
-        plt.show()
-    plot_filename = "part1_step{}.png".format(step)
-    plt.savefig(plot_filename)
-    print("Saved the plot to {}".format(plot_filename))
-    plt.close()
-
-def solve_linear_regression(X, t, lambda_value = 0):
-    # APPLY CLOSED FORM SOLUTION
-    # w∗ = ((X'X)^-1)X't
-    # w∗ = ((X'X + λI)^−1)X't
-    w = np.matmul(
-        np.linalg.inv(
-            np.matmul(
-                np.transpose(X),
-                X
-            ) + lambda_value
-        ),
-        np.matmul(
-            np.transpose(X),
-            t
-        )
-    )
-
-    y = np.matmul(X, w)
-    #erms = np.sum((y - t) ** 2) / 2 + (
-    #    np.linalg.norm(w,2) * PART2_REGULARIZATION_LAMBDA / 2
-    #    if apply_l2_regularization else 0
-    #)
-    erms = np.sqrt(np.sum((y - t) ** 2) / t.size)
-
-    return w, erms, y
-
-def solve_linear_regression_s_fold(X, t, lambda_value = 0):
-    n, m = X.shape
-    sample_per_fold = int(n / PART2_S_FOLD_S_VALUE)
-    if sample_per_fold * PART2_S_FOLD_S_VALUE != n:
-        raise Exception("Sample count {} is not divisible by S, {} of s-fold"
-                        .format(n, PART2_S_FOLD_S_VALUE))
-    erms_test_values = np.zeros(PART2_S_FOLD_S_VALUE)
-    erms_train_values = np.zeros(PART2_S_FOLD_S_VALUE)
-    for i in range(PART2_S_FOLD_S_VALUE):
-        n_start = i * sample_per_fold
-        n_end = (i+1) * sample_per_fold
-        X_test = X[n_start:n_end, :]
-        X_train = np.concatenate((
-            X[0:n_start, :],
-            X[n_end:, :]
-        ), axis=0)
-        t_test = t[n_start:n_end, :]
-        t_train = np.concatenate((
-            t[0:n_start, :],
-            t[n_end:, :]
-        ))
-        w, erms_train, y_train = solve_linear_regression(X_train, t_train, lambda_value)
-        y_test = np.matmul(X_test, w)
-        erms_test = np.sqrt(np.sum((y_test - t_test) ** 2) / t_test.size)
-        erms_test_values[i] = erms_test
-        erms_train_values[i] = erms_train
-    erms_test_average = np.sum(erms_test_values) / PART2_S_FOLD_S_VALUE
-    erms_train_average = np.sum(erms_train_values) / PART2_S_FOLD_S_VALUE
-    return erms_train_average, erms_test_average
-
+def solve_svm(X_train, t_train, X_test, t_test, C, kernel):
+    # normalize data to avoid warnings related to reaching max iteration for some c values
+    # WARNING: reaching max number of iterations
+    norm = np.linalg.norm(X_train, axis=0)
+    norm_X_train = X_train / norm
+    norm_X_test = X_test / norm
+    m = svm_train(t_train, norm_X_train, "-q -t {} -c {}".format(kernel, C))
+    n  = t_test.size
+    number_of_support_vectors = m.get_nr_sv()
+    p_labels, p_acc, p_vals = svm_predict(t_test, norm_X_test, m, "-q")
+    accuracy = p_acc[0] / 100
+#    manual_accuracy = 0
+#    for i in range(n):
+#        if  int(p_labels[i]) == t_test[i]:
+#            manual_accuracy += 1
+#    manual_accuracy  /= n
+    return accuracy,  number_of_support_vectors
 
 def part2(step):
-    dataset_filename = ''
-    apply_l2_regularization = False
+    dataset_filename = 'wbcd.csv'
+
+    kernels = [0]
+    c_values = [10.0]
+    # c_values = [0.01, 0.1, 1.0, 10.0, 100.0]
+    # kernels = [0, 1, 2, 3]
     if step == 1:
-        dataset_filename = 'ds1.csv'
-        apply_l2_regularization = False
+        c_values = [0.01, 0.1, 1.0, 10.0, 100.0]
     elif step == 2:
-        dataset_filename = 'ds2.csv'
-        apply_l2_regularization = False
-    elif step == 3:
-        dataset_filename = 'ds2.csv'
-        apply_l2_regularization = True
+        kernels = [0, 1, 2, 3]
     else:
-        raise Exception("On part2: Unexpected step " + str(step) + ", must be one of  1-3")
-    input = np.loadtxt(dataset_filename, delimiter=",", encoding="utf8")
+        raise Exception("On part2: Unexpected step " + str(step) + ", must be one of  1-2")
+
+    input = np.loadtxt(dataset_filename, delimiter=",", encoding="utf8", skiprows=0, dtype=str)
+    headings = input[0, 2:] # remove id and diagnosis field, too.
+    input = input[1:, :]
     n, m = input.shape
-    X = input[:, 0:(m-1)]
-    t = input[:, (m-1):]
-    start = time.time()
-    erms_train, erms_test = solve_linear_regression_s_fold(X, t, PART2_REGULARIZATION_LAMBDA if apply_l2_regularization else 0)
-    end = time.time()
+    X = input[:, 2:].astype(np.float)
+    t = np.vectorize(part2_class_to_number.get)(input[:, 1])
+    X_train = X[:400, :]
+    X_test  = X[400:, :]
+    t_train = t[:400]
+    t_test = t[400:]
 
-    print("Applying {}-fold cross validation".format(PART2_S_FOLD_S_VALUE))
-    print("There were {} independent variables and 1 dependent variables".format(m-1))
-    print("There were {} samples in total".format(n))
-    print("Completed in {:.3f} milliseconds".format((end - start)*1000))
-    print("Average Erms_train = {}".format(erms_train))
-    print("Average Erms_test = {}".format(erms_test))
+    if PRINT_USEFUL_EXTRA_TEXT:
+        print("There are {} independent variables and 1 dependent variables".format(m - 2))
+        print("There are {} samples in total".format(n))
 
-    if PART2_PLOT_PREDICTIONS:
-        print("Calculating without cross-validation")
-        w, erms, y = solve_linear_regression(X, t, PART2_REGULARIZATION_LAMBDA if apply_l2_regularization else 0)
-        print("Weights = {}".format(w.flatten()))
-        plt.scatter(range(n), y, s=1, color='purple', label='Predicted y')
-        plt.scatter(range(n), t, s=1, color='green', label='Target')
-        plt.plot(range(n), y - t, color='red', label='Root Mean Square Error')
-        plt.title('Assignment 1 Part 2 Step {} - Predictions - No Cross-Validation'.format(step))
-        plt.xlabel('Sample Number', color='#222222')
-        plt.ylabel('Target Value', color='#222222')
-        plt.legend(loc='upper left')
-        plt.grid()
-        if SHOW_PLOTS:
-            plt.show()
-        plot_filename = "part2_step{}_predictions.png".format(step)
-        plt.savefig(plot_filename)
-        print("Saved the plot to {}".format(plot_filename))
-        plt.close()
-
-    if PART2_PLOT_LAMBDA_VALUES:
-        print("Calculating for a range of lambda values")
-        erms_train_values = []
-        erms_test_values = []
-        ln_lambda_values = range(-60, 5)
-        for lambda_value in ln_lambda_values:
-            erms_train, erms_test = solve_linear_regression_s_fold(X, t, np.exp(lambda_value))
-            erms_train_values.append(erms_train)
-            erms_test_values.append(erms_test)
-        plt.plot(ln_lambda_values, erms_train_values, color='blue', label='Training')
-        plt.plot(ln_lambda_values, erms_test_values, color='red', label='Test')
-        plt.title('Assignment 1 Part 2 Step {} - Regularization - {}-Fold Cross-Validation'.format(step, PART2_S_FOLD_S_VALUE))
-        plt.xlabel('ln(lambda)', color='#222222')
-        plt.ylabel('Root Mean Square Error', color='#222222')
-        plt.legend(loc='upper left')
-        plt.grid()
-        if SHOW_PLOTS:
-            plt.show()
-        plot_filename = "part2_step{}_regularization.png".format(step)
-        plt.savefig(plot_filename)
-        print("Saved the plot to {}".format(plot_filename))
-        plt.close()
+    for c in c_values:
+        for k in kernels:
+            if PRINT_USEFUL_EXTRA_TEXT:
+                print("Calculating svm for C={} Kernel={}".format(c, k))
+            start = time.time()
+            accuracy, support_vector_count = solve_svm(X_train, t_train, X_test, t_test, c, k)
+            end = time.time()
+            print("SVM kernel={} C={} acc={} n={}".format(k, c, accuracy, support_vector_count))
+            if PRINT_USEFUL_EXTRA_TEXT:
+                print("Calculated svm for C={} Kernel={} in {:.3f} milliseconds".format(c, k, (end - start)*1000))
 
 
 if __name__ == "__main__":
