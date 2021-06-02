@@ -23,18 +23,96 @@ PART2_PLOT_LAMBDA_VALUES = False
 
 number_to_class = ["Iris-setosa", "Iris-versicolor"]
 class_to_number = {}
-for i, class_name in enumerate(number_to_class):
-    class_to_number[class_name] = i
+for ind, class_name in enumerate(number_to_class):
+    class_to_number[class_name] = ind
+
+def prob_to_entropy(prob):
+    return prob if prob == 0 else - prob * np.log2(prob)
+
+def entropy(p, n):
+    return prob_to_entropy(p/(p+n)) + prob_to_entropy(n/(p+n))
+
+def entropy_for_t(t):
+    counts = np.zeros(2)
+    for c in t:
+        counts[c] += 1
+    return entropy(counts[0], counts[1])
+
+# tree elements: (feature_index, threshold, lte_node, gt_node)
+
+def solve_decision_tree_recurse(X, t, use_gain_ratio, depth = 0):
+    n, m = X.shape
+
+    counts = np.zeros(2)
+    for c in t:
+        counts[c] += 1
+
+    if depth >= PART1_MAX_TREE_DEPTH or np.max(counts) == t.size:
+        return np.argmax(counts)
+
+    current_entropy = entropy(counts[0], counts[1])
+    # separate by feature mean values as thresholds
+    thresholds = np.mean(X, axis=0)
+    split_feature_index = -1
+    prev_score = -np.inf
+    for i in range(m):
+        lte_t = t[(X[:, i] <= thresholds[i])]
+        gt_t = t[(X[:, i] > thresholds[i])]
+        lte_entropy = entropy_for_t(lte_t)
+        gt_entropy = entropy_for_t(gt_t)
+        weighted_entropy = (lte_t.size * lte_entropy + gt_t.size * gt_entropy) / t.size
+        info_gain = current_entropy - weighted_entropy
+        score = info_gain
+        if use_gain_ratio:
+            gain_ratio = info_gain / (
+                    prob_to_entropy(lte_t.size/t.size)
+                    + prob_to_entropy(gt_t.size/t.size)
+            )
+            score = gain_ratio
+        if score > prev_score:
+            split_feature_index = i
+            prev_score = score
+    lte_t = t[(X[:, split_feature_index] <= thresholds[split_feature_index])]
+    gt_t = t[(X[:, split_feature_index] > thresholds[split_feature_index])]
+    lte_X = X[(X[:, split_feature_index] <= thresholds[split_feature_index])]
+    gt_X = X[(X[:, split_feature_index] > thresholds[split_feature_index])]
+    if split_feature_index == -1:
+        # shouldn't end up here, but put it just in case.
+        return np.argmax(counts)
+    return (
+        split_feature_index, 
+        thresholds[split_feature_index],
+        solve_decision_tree_recurse(lte_X, lte_t, use_gain_ratio),
+        solve_decision_tree_recurse(gt_X, gt_t, use_gain_ratio)
+    )
+
+def decide_for_sample(dt, x):
+    # x has 1 rows!!!
+    current = dt
+    while isinstance(current, tuple):
+        split_feature_index, threshold, lte_node, gt_node = current
+        current = lte_node if x[split_feature_index] <= threshold else gt_node
+    return current
 
 def solve_decision_tree(X, t, use_gain_ratio):
     # first 40 of each class
-    X_train = np.concatenate(X[0:40, :], X[50:90, :], axis=0)
-    t_train = np.concatenate(t[0:40, :], t[50:90, :], axis=0)
+    X_train = np.concatenate((X[0:40, :], X[50:90, :]), axis=0)
+    t_train = np.concatenate((t[0:40, :], t[50:90, :]), axis=0)
     # last 10 of each class
-    X_test = np.concatenate(X[40:50, :], X[90:100, :], axis=0)
-    t_test = np.concatenate(t[40:50, :], t[90:100, :], axis=0)
-    # TODO CALCULATE DT
-    # TODO CALCULATE ACCURACY
+    X_test = np.concatenate((X[40:50, :], X[90:100, :]), axis=0)
+    t_test = np.concatenate((t[40:50, :], t[90:100, :]), axis=0)
+    test_count = 20
+    dt = solve_decision_tree_recurse(X_train, t_train, use_gain_ratio)
+    y_predict = [decide_for_sample(dt, X_test[i, :]) for i in range(20)]
+    correct_count = 0
+    for i in range(20):
+        if y_predict[i] == t_test[i]:
+            correct_count += 1
+    accuracy = correct_count / test_count
+
+    if PRINT_USEFUL_EXTRA_TEXT:
+        print("full dt: ", dt)
+    return accuracy, dt[0]
 
 
 def part1(step):
